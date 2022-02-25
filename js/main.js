@@ -77,6 +77,14 @@
   var nav_sections = $('section');
   var main_nav = $('.main-nav, .mobile-nav');
   var main_nav_height = $('#header').outerHeight();
+  var config = {
+			apiKey: "AIzaSyAFsR50dYlnVc02YA0OkoqLt9DKFtQbGUI",
+			authDomain: "testtick-29ef4.firebaseapp.com",
+			databaseURL: "https://testtick-29ef4.firebaseio.com",
+			projectId: "testtick-29ef4",
+			storageBucket: "firebase-adminsdk-a63nb@testtick-29ef4.iam.gserviceaccount.com",
+			messagingSenderId: "342030900772"
+		};
 
   $(window).on('scroll', function () {
     var cur_pos = $(this).scrollTop();
