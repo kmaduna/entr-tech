@@ -303,7 +303,7 @@
             <div class="form">
               <div id="sendmessage">Your message has been sent. Thank you!</div>
               <div id="errormessage"></div>
-              <form action="/mailto:sales@entr-tech.co.za" method="get" enctype="text/plain" autocorrect="on">
+              <form onSubmit="sendEmail(); reset(); return false;">
                 <div class="form-row">
                   <div class="form-group col-lg-6">
                     <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 characters"/>
@@ -415,84 +415,25 @@
   <script src="lib/isotope/isotope.pkgd.min.js"></script>
   <script src="lib/lightbox/js/lightbox.min.js"></script>
   <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+	    <script src=
+		    function sendEmail() {
+		Email.send({
+    Host : "smtppro.zoho.com",
+    Username : "khotso@entr-tech.co.za",
+    Password : "Genevieve@1zoho",
+    To : 'sales@entr-tech.co.za',
+    From : document.getElementById("email").value,
+    Subject : "This is the subject",
+    Body : "And this is the body"
+}).then(
+  message => alert(message)
+);</script>
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
  
-      <script>
-
-		//Store information about your firebase so we can connect
-		
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//IMPORTANT: REPLACE THESE WITH YOUR VALUES (these ones won't work)
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-		var config = {
-			apiKey: "AIzaSyAFsR50dYlnVc02YA0OkoqLt9DKFtQbGUI",
-			authDomain: "testtick-29ef4.firebaseapp.com",
-			databaseURL: "https://testtick-29ef4.firebaseio.com",
-			projectId: "testtick-29ef4",
-			storageBucket: "firebase-adminsdk-a63nb@testtick-29ef4.iam.gserviceaccount.com",
-			messagingSenderId: "342030900772"
-		};
-		
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-		
-		//initialize your firebase
-		firebase.initializeApp(config);
-		var database = firebase.database();
-		
-		//create a variable to hold our orders list from firebase
-		var firebaseOrdersCollection = database.ref().child('orders');
-
-		//this function is called when the submit button is clicked
-		function submitOrder() {
-
-			//Grab order data from the form
-			var order = {
-				fullName: $('#fullNameField').val(), //another way you could write is $('#myForm [name="fullname"]').
-				notes: $('#notesField').val(), //another way you could write is $('#myForm [name="fullname"]').
-			};
-			
-			//'push' (aka add) your order to the existing list
-			firebaseOrdersCollection.push(order); //'orders' is the name of the 'collection' (aka database table)
-			
-		};
-		
-		//create a 'listener' which waits for changes to the values inside the firebaseOrdersCollection 
-		firebaseOrdersCollection.on('value',function(orders){
-			
-			//create an empty string that will hold our new HTML
-			var allOrdersHtml = "";
-			
-			//this is saying foreach order do the following function...
-			orders.forEach(function(firebaseOrderReference){
-				
-				//this gets the actual data (JSON) for the order.
-				var order = firebaseOrderReference.val();
-				console.log(order); //check your console to see it!
-				
-				//create html for the individual order
-				//note: this is hard to make look pretty! Be sure to keep your indents nice :-)
-				//IMPORTANT: we use ` here instead of ' (notice the difference?) That allows us to use enters
-				var individialOrderHtml =	`<div class='item'>
-												<p>Name: `+order.fullName+`</p>
-												<p>Notes: `+order.notes+`</p>
-											</div>`;
-				
-				//add the individual order html to the end of the allOrdersHtml list
-				allOrdersHtml = allOrdersHtml + individialOrderHtml;
-			});
-			
-			//actaull put the html on the page inside the element with the id PreviousOrders
-			$('#previousOrders').html(allOrdersHtml);
-			
-			//note: an alternative approach would be to create a hidden html element for one order on the page, duplicate it in the forEach loop, unhide it, and replace the information, and add it back. 
-		});
-	</script>
+    
 
 </body>
 </html>
