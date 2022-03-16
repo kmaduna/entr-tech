@@ -125,7 +125,7 @@ h6 {
 --------------------------------------------------------------*/
 
 #header {
-  height: 80px;
+  height: 200px;
   transition: all 0.5s;
   z-index: 997;
   transition: all 0.5s;
@@ -145,7 +145,7 @@ h6 {
   margin: 0;
   padding: 0;
   line-height: 1;
-  font-weight: 400;
+  font-weight: 800;
   letter-spacing: 3px;
   text-transform: uppercase;
 }
