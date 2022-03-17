@@ -88,7 +88,7 @@ h6 {
   top: calc(50% - 30px);
   left: calc(50% - 30px);
   border: 6px solid #f2f2f2;
-  border-top: 6px solid #007bff;
+  border-top: 6px solid #070707;
   border-radius: 50%;
   width: 60px;
   height: 60px;
@@ -125,7 +125,7 @@ h6 {
 --------------------------------------------------------------*/
 
 #header {
-  height: 200px;
+  height: 80px;
   transition: all 0.5s;
   z-index: 997;
   transition: all 0.5s;
@@ -134,20 +134,22 @@ h6 {
   box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.3);
 }
 
-#header.sticky-header,
+#header.header-scrolled,
 #header.header-pages {
-  height: 100px;
+  height: 60px;
   padding: 10px 0;
 }
 
 #header .logo h1 {
-  font-size: 72px;
+  font-size: 36px;
   margin: 0;
   padding: 0;
-  line-height: 1;
-  font-weight: 800;
+  line-height: auto;
+  font-weight: auto;
   letter-spacing: 3px;
   text-transform: uppercase;
+  max-width: 100%;
+  height: auto;
 }
 
 #header .logo h1 a,
@@ -158,8 +160,8 @@ h6 {
 
 #header .logo img {
   padding: 200;
-  margin: 7px 0;
-  max-height: 200px;
+  margin: 24px 10;
+  max-height: 100px;
 }
 
 .main-pages {
@@ -263,7 +265,7 @@ h6 {
 .main-nav a {
   display: block;
   position: relative;
-  color: #004289;
+  color: #3d4247;
   padding: 10px 15px;
   transition: 0.3s;
   font-size: 14px;
@@ -274,7 +276,7 @@ h6 {
 .main-nav a:hover,
 .main-nav .active > a,
 .main-nav li:hover > a {
-  color: #007bff;
+  color: #3d4247;
   text-decoration: none;
 }
 
@@ -1185,14 +1187,14 @@ h6 {
 --------------------------------------------------------------*/
 
 #footer {
-  background: #00428a;
+  background: #070707;
   padding: 0 0 30px 0;
   color: #eee;
   font-size: 14px;
 }
 
 #footer .footer-top {
-  background: #004a99;
+  background: #070707;
   padding: 60px 0 30px 0;
 }
 
