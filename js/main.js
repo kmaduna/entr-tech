@@ -1,10 +1,15 @@
+/**
+ * ENTR Technologies - 2026 Redesign
+ * Core Interactions Script
+ */
+
 (function ($) {
   "use strict";
 
   // Preloader (if the #preloader div exists)
   $(window).on('load', function () {
     if ($('#preloader').length) {
-      $('#preloader').delay(100).fadeOut('slow', function () {
+      $('#preloader').delay(150).fadeOut('slow', function () {
         $(this).remove();
       });
     }
@@ -18,24 +23,27 @@
       $('.back-to-top').fadeOut('slow');
     }
   });
+  
   $('.back-to-top').click(function(){
-    $('html, body').animate({scrollTop : 0},1500, 'easeInOutExpo');
+    $('html, body').animate({scrollTop : 0}, 1200, 'easeInOutExpo');
     return false;
   });
 
   // Initiate the wowjs animation library
-  new WOW().init();
+  if (typeof WOW !== 'undefined') {
+    new WOW().init();
+  }
 
   // Header scroll class
   $(window).scroll(function() {
-    if ($(this).scrollTop() > 100) {
+    if ($(this).scrollTop() > 60) {
       $('#header').addClass('header-scrolled');
     } else {
       $('#header').removeClass('header-scrolled');
     }
   });
 
-  if ($(window).scrollTop() > 100) {
+  if ($(window).scrollTop() > 60) {
     $('#header').addClass('header-scrolled');
   }
 
@@ -48,15 +56,15 @@
 
         if ($('#header').length) {
           top_space = $('#header').outerHeight();
-
-          if (! $('#header').hasClass('header-scrolled')) {
-            top_space = top_space - 20;
+          if (!$('#header').hasClass('header-scrolled')) {
+            // Adjust for transition height difference
+            top_space = top_space - 15;
           }
         }
 
         $('html, body').animate({
           scrollTop: target.offset().top - top_space
-        }, 1500, 'easeInOutExpo');
+        }, 1200, 'easeInOutExpo');
 
         if ($(this).parents('.main-nav, .mobile-nav').length) {
           $('.main-nav .active, .mobile-nav .active').removeClass('active');
@@ -77,20 +85,12 @@
   var nav_sections = $('section');
   var main_nav = $('.main-nav, .mobile-nav');
   var main_nav_height = $('#header').outerHeight();
-  var config = {
-			apiKey: "AIzaSyAFsR50dYlnVc02YA0OkoqLt9DKFtQbGUI",
-			authDomain: "testtick-29ef4.firebaseapp.com",
-			databaseURL: "https://testtick-29ef4.firebaseio.com",
-			projectId: "testtick-29ef4",
-			storageBucket: "firebase-adminsdk-a63nb@testtick-29ef4.iam.gserviceaccount.com",
-			messagingSenderId: "342030900772"
-		};
 
   $(window).on('scroll', function () {
     var cur_pos = $(this).scrollTop();
   
     nav_sections.each(function() {
-      var top = $(this).offset().top - main_nav_height,
+      var top = $(this).offset().top - main_nav_height - 20,
           bottom = top + $(this).outerHeight();
   
       if (cur_pos >= top && cur_pos <= bottom) {
@@ -100,32 +100,51 @@
     });
   });
 
-  // jQuery counterUp (used in Whu Us section)
-  $('[data-toggle="counter-up"]').counterUp({
-    delay: 10,
-    time: 1000
-  });
-
-  // Porfolio isotope and filter
-  $(window).on('load', function () {
-    var portfolioIsotope = $('.portfolio-container').isotope({
-      itemSelector: '.portfolio-item'
+  // CounterUp integration for statistics cards
+  if ($.fn.counterUp) {
+    $('[data-toggle="counter-up"]').counterUp({
+      delay: 10,
+      time: 1000
     });
-    $('#portfolio-flters li').on( 'click', function() {
-      $("#portfolio-flters li").removeClass('filter-active');
-      $(this).addClass('filter-active');
-  
-      portfolioIsotope.isotope({ filter: $(this).data('filter') });
-    });
-  });
+  }
 
-  // Testimonials carousel (uses the Owl Carousel library)
-  $(".testimonials-carousel").owlCarousel({
-    autoplay: true,
-    dots: true,
-    loop: true,
-    items: 1
+  // 3D Card Tilt Interaction (Premium Micro-interaction)
+  $(document).ready(function() {
+    const isMobile = window.matchMedia("(max-width: 991px)").matches;
+    
+    // Only enable 3D tilt on desktops for better performance and usability
+    if (!isMobile) {
+      $('.glass-panel').each(function() {
+        const card = $(this);
+        
+        card.on('mousemove', function(e) {
+          const rect = this.getBoundingClientRect();
+          const x = e.clientX - rect.left; // x coordinate within the element
+          const y = e.clientY - rect.top;  // y coordinate within the element
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          // Calculate rotation values (-10deg to 10deg)
+          const rotateX = ((centerY - y) / centerY) * 8; 
+          const rotateY = ((x - centerX) / centerX) * 8;
+          
+          card.css({
+            'transform': `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`,
+            'box-shadow': '0 20px 40px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 110, 255, 0.15)',
+            'border-color': 'rgba(255, 255, 255, 0.2)'
+          });
+        });
+        
+        card.on('mouseleave', function() {
+          card.css({
+            'transform': 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)',
+            'box-shadow': '',
+            'border-color': ''
+          });
+        });
+      });
+    }
   });
 
 })(jQuery);
-
